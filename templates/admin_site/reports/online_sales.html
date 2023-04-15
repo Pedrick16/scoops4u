@@ -1,0 +1,38 @@
+{% extends 'admin_site/base.html' %}
+
+
+{% block content %}
+{% load humanize %}
+    <div id="form-date" class="text-end">
+    <form action="{% url 'admin_site:search_online_sales' %}" method="post">
+        {% csrf_token %}
+        From : <input type="date" name="start_date" required>To : <input type="date" name="end_date" required> <input type="submit" class="btn btn-dark text-center" value="Search" >
+    </form>
+    </div>
+    
+
+        
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Sales No</th>
+                <th>Sales</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for list in transaction %}
+                <tr>
+                    <td>{{ list.id }}</td>
+                    <td>&#8369;{{ list.transaction_totalprice|floatformat:2|intcomma}}</td>
+                    <td>{{ list.created_at}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+    <div class="text-end px-5">
+        <label style="font-weight: bolder;" > Total Sales: &#8369;{{ list_transaction|floatformat:2|intcomma }}   </label>
+    </div>
+
+{% endblock content %}
+    
